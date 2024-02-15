@@ -106,20 +106,19 @@ namespace GXPEngine
                 Constants.highScore = Constants.score;
             }
 
-            if (score != Constants.score)
+            /*
+            List<GameObject> children = GetChildren();
+            foreach (GameObject child in children)
             {
-                List<GameObject> children = GetChildren();
-                foreach (GameObject child in children)
-                {
-                    child.LateDestroy();
-                }
-
-                scoreCounter = new EasyDraw(288, 32);
-                score = Constants.score;
-                scoreCounter.Clear(Color.Black);
-                scoreCounter.Text(("Score: " + score + " | High Score: " + Constants.highScore));
-                AddChild(scoreCounter);
+                child.LateDestroy();
             }
+            */
+
+            scoreCounter = new EasyDraw(288, 32);
+            score = Constants.score;
+            scoreCounter.Clear(Color.Black);
+            scoreCounter.Text(("Score: " + score + " | High Score: " + Constants.highScore));
+            AddChild(scoreCounter);
         }
     }
 }

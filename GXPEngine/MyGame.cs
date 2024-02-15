@@ -33,32 +33,31 @@ public class MyGame : Game
             tickTimer = 0;
         }
 
-        /*
-        */
-
         if (Constants.minigameTime <= 0)
         {
-            Console.WriteLine(Constants.minigameTime);
+            Constants.hud.updateScore();
             endMinigame();
-            /*
-            */
-            Constants.minigameTime = 10;
+            Constants.minigameTime = 60;
         } else
         {
             if (activeMinigame != null)
             {
 
                 activeMinigame.update();
-                if (activeMinigame.GetType() == typeof(MinigameSimonsays))
-                {
-
-                }
             } else
             {
-                startWaterfall();
+                Random randGame = new Random();
+                int randomOutput = randGame.Next(2);
+                if(randomOutput == 0)
+                {
+                    startSimonSays();
+                } else
+                {
+                    startWaterfall();
+                }
             }
         }
-
+        Constants.hud.updateScore();
     }
 
     void endMinigame()
@@ -68,6 +67,7 @@ public class MyGame : Game
             Constants.hud.clearMinigame();
             activeMinigame.LateDestroy();
             activeMinigame = null;
+            Constants.hud.updateScore();
         }
     }
 

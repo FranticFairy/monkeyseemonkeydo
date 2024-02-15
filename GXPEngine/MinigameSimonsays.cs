@@ -38,7 +38,6 @@ namespace GXPEngine
                     Constants.minigameTime = 0;
                     playerInput = "";
                     Constants.score++;
-                    Constants.hud.updateScore();
                 }
                 else
                 {
@@ -48,7 +47,6 @@ namespace GXPEngine
             else
             {
                 Constants.score--;
-                Constants.hud.updateScore();
                 Constants.minigameTime = 0;
                 playerInput = "";
             }

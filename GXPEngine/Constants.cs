@@ -27,6 +27,8 @@ namespace GXPEngine
         //Is a minigame active now?
         public static bool minigameOngoing;
 
+        public static int boostTime;
+
 
         public static Dictionary<char, String> charToMorse = new Dictionary<char, String>()
             {
