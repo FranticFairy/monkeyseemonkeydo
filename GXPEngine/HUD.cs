@@ -13,6 +13,7 @@ namespace GXPEngine
         EasyDraw scoreCounter;
         EasyDraw simon;
         EasyDraw player;
+        EasyDraw vine;
         string playerText;
 
         public HUD()
@@ -22,17 +23,22 @@ namespace GXPEngine
             scoreCounter.Text(("Score: " + score + " | High Score: " + Constants.highScore));
             AddChild(scoreCounter);
 
+            /*
             simon = new EasyDraw(288, 32);
             player = new EasyDraw(288, 32);
             AddChild(simon);
             simon.SetXY(0, 40);
             AddChild(player);
             player.SetXY(0, 80);
+            */
         }
 
         public void writeSimon(string input)
         {
-            simon.LateDestroy();
+            if(simon != null)
+            {
+                simon.LateDestroy();
+            }
 
             simon = new EasyDraw(288, 32);
             simon.Clear(Color.Black);
@@ -41,9 +47,27 @@ namespace GXPEngine
             simon.SetXY(0, 40);
         }
 
+        public void writeVine(string input)
+        {
+            if (vine != null)
+            {
+                vine.LateDestroy();
+            }
+
+
+            vine = new EasyDraw(400, 400);
+            vine.Clear(Color.Black);
+            vine.Text(input);
+            AddChild(vine);
+            vine.SetXY(0, 40);
+        }
+
         public void writePlayer(string input)
         {
-            player.LateDestroy();
+            if (player != null)
+            {
+                player.LateDestroy();
+            }
 
             //playerText = playerText+ input;
 
@@ -52,6 +76,27 @@ namespace GXPEngine
             player.Text(input);
             AddChild(player);
             player.SetXY(0, 80);
+        }
+
+        public void clearMinigame()
+        {
+            if (simon != null)
+            {
+                simon.LateDestroy();
+            }
+            if (player != null)
+            {
+                player.LateDestroy();
+            }
+            if (vine != null)
+            {
+                vine.LateDestroy();
+            }
+            List<GameObject> children = GetChildren();
+            foreach (GameObject child in children)
+            {
+                child.LateDestroy();
+            }
         }
 
         public void updateScore()

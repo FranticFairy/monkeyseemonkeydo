@@ -8,6 +8,7 @@ namespace GXPEngine
 {
     static class Constants
     {
+        public static HUD hud;
         //highScore will be reworked later.
         public static int highScore;
 

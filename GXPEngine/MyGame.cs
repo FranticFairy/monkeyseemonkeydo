@@ -8,20 +8,18 @@ public class MyGame : Game
 {
     EasyDraw background;
     EasyDraw canvas;
-    HUD hud;
     int tickTimer;
     string simonKey = "";
-    string playerKey = " ";
+    string playerInput = " ";
+    Minigame activeMinigame = null;
     public MyGame() : base(1366, 768, false)     // Create a window that's 800x600 and NOT fullscreen
     {
-        Sprite backgroundTest = new Sprite("background_try.png");
-        AddChild(backgroundTest);
-
-        hud = new HUD();
-        AddChild(hud);
-        hud.SetXY(0, 0);
+        Constants.hud = new HUD();
+        AddChild(Constants.hud);
+        Constants.hud.SetXY(0, 0);
 
         startGame();
+
 
     }
 
@@ -31,47 +29,55 @@ public class MyGame : Game
         tickTimer++;
         if(tickTimer == 30)
         {
-            Console.WriteLine(Constants.minigameTime);
             Constants.minigameTime--;
             tickTimer = 0;
         }
 
-        if (Input.GetKeyUp(Key.ENTER))
-        {
-            playerKey = playerKey + "-";
-        }
-        if (Input.GetKeyUp(Key.SPACE))
-        {
-            playerKey = playerKey + ".";
-        }
-        if (simonKey.StartsWith(playerKey))
-        {
-            if(simonKey == playerKey)
-            {
-                Constants.minigameTime = 0;
-                playerKey = "";
-                Constants.score++;
-                hud.updateScore();
-            } else
-            {
-                hud.writePlayer(playerKey);
-            }
-        } else
-        {
-            Constants.score--;
-            hud.updateScore();
-            Constants.minigameTime = 0;
-            playerKey = "";
-        }
+        /*
+        */
 
         if (Constants.minigameTime <= 0)
         {
-            Random rand = new Random();
-            simonKey = Constants.morseValueList[rand.Next(Constants.morseValueList.Count)];
-            hud.writeSimon(simonKey);
+            Console.WriteLine(Constants.minigameTime);
+            endMinigame();
+            /*
+            */
             Constants.minigameTime = 10;
+        } else
+        {
+            if (activeMinigame != null)
+            {
+
+                activeMinigame.update();
+                if (activeMinigame.GetType() == typeof(MinigameSimonsays))
+                {
+
+                }
+            } else
+            {
+                startWaterfall();
+            }
         }
 
+    }
+
+    void endMinigame()
+    {
+        if(activeMinigame != null)
+        {
+            Constants.hud.clearMinigame();
+            activeMinigame.LateDestroy();
+            activeMinigame = null;
+        }
+    }
+
+    void startSimonSays()
+    {
+        activeMinigame = new MinigameSimonsays();
+    }
+    void startWaterfall()
+    {
+        activeMinigame = new MinigameWaterfall();
     }
 
     void startGame()

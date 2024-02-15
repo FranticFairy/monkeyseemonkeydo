@@ -65,6 +65,7 @@
     <Compile Include="LevelLoader.cs" />
     <Compile Include="Minigame.cs" />
     <Compile Include="MinigameSimonsays.cs" />
+    <Compile Include="MinigameWaterfall.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Core\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />

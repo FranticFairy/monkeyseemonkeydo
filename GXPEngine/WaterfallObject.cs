@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace GXPEngine
 {
-    internal class Minigame : GameObject
+    internal class WaterfallObject
     {
-        public Minigame()
-        {
-        }
+        public bool obstacle = false;
+        public bool fromBelow = false;
 
-        public virtual void update()
-        {
+        public WaterfallObject() 
+        { 
 
         }
     }
