@@ -12,6 +12,8 @@ public class MyGame : Game
     string simonKey = "";
     string playerInput = " ";
     Minigame activeMinigame = null;
+
+
     public MyGame() : base(1366, 768, false)     // Create a window that's 800x600 and NOT fullscreen
     {
         Constants.hud = new HUD();
@@ -19,6 +21,10 @@ public class MyGame : Game
         Constants.hud.SetXY(0, 0);
 
         startGame();
+
+        Constants.leftBongo = new ActorBongo();
+        Constants.rightBongo = new ActorBongo();
+        Constants.player = new ActorMonkey();
 
 
     }
@@ -29,55 +35,11 @@ public class MyGame : Game
         tickTimer++;
         if(tickTimer == 30)
         {
-            Constants.minigameTime--;
+
             tickTimer = 0;
         }
 
-        if (Constants.minigameTime <= 0)
-        {
-            Constants.hud.updateScore();
-            endMinigame();
-            Constants.minigameTime = 60;
-        } else
-        {
-            if (activeMinigame != null)
-            {
-
-                activeMinigame.update();
-            } else
-            {
-                Random randGame = new Random();
-                int randomOutput = randGame.Next(2);
-                if(randomOutput == 0)
-                {
-                    startSimonSays();
-                } else
-                {
-                    startWaterfall();
-                }
-            }
-        }
         Constants.hud.updateScore();
-    }
-
-    void endMinigame()
-    {
-        if(activeMinigame != null)
-        {
-            Constants.hud.clearMinigame();
-            activeMinigame.LateDestroy();
-            activeMinigame = null;
-            Constants.hud.updateScore();
-        }
-    }
-
-    void startSimonSays()
-    {
-        activeMinigame = new MinigameSimonsays();
-    }
-    void startWaterfall()
-    {
-        activeMinigame = new MinigameWaterfall();
     }
 
     void startGame()
@@ -85,8 +47,6 @@ public class MyGame : Game
         Constants.gameSpeed = 1;
         Constants.score = 0;
         Constants.playTime = 0;
-        Constants.minigameOngoing = false;
-        Constants.minigameTime = 0;
     }
 
     static void Main()                          // Main() is the first method that's called when the program is run

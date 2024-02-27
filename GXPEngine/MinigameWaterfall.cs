@@ -19,7 +19,7 @@ namespace GXPEngine
 
         private int oldMonkeyVine = 0;
         private int spawnTicker = 10;
-        private int moveTicker = 20;
+        private int moveTicker = 30;
 
         public MinigameWaterfall()
         {
@@ -143,7 +143,7 @@ namespace GXPEngine
                         vines[oldheight][objectvine] = "|";
                     }
                 }
-                moveTicker = 20;
+                moveTicker = 30;
             }
 
             if (spawnTicker == 0)

@@ -21,6 +21,10 @@ namespace GXPEngine
         //Rate of speed of the game
         public static int gameSpeed;
 
+        public static ActorBongo leftBongo;
+        public static ActorBongo rightBongo;
+        public static ActorMonkey player;
+
         //How much time is there left in this minigame if Ongoing is true, or how much time until the next minigame if not
         public static int minigameTime;
 
