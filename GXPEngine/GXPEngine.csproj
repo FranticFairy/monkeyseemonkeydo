@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Actor.cs" />
     <Compile Include="ActorBongo.cs" />
+    <Compile Include="ActorHunter.cs" />
     <Compile Include="ActorItem.cs" />
     <Compile Include="ActorMonkey.cs" />
     <Compile Include="Constants.cs" />
@@ -66,8 +67,6 @@
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
     <Compile Include="HUD.cs" />
-    <Compile Include="ItemFruit.cs" />
-    <Compile Include="ItemObstacle.cs" />
     <Compile Include="LevelLoader.cs" />
     <Compile Include="Minigame.cs" />
     <Compile Include="MinigameSimonsays.cs" />

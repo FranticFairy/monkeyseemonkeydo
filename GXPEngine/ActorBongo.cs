@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace GXPEngine
 {
-    internal class ActorBongo : Actor
+    public class ActorBongo : Actor
     {
-        ActorBongo()
+
+        public ActorBongo(int x, int y, string name)
         {
+            sprite = new Sprite("triangle.png");
+            sprite.SetOrigin(sprite.width, sprite.height);
+            sprite.SetXY(x, y);
+            this.sprite.name = name;
 
         }
+
     }
 }

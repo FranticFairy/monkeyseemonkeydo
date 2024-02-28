@@ -15,6 +15,13 @@ namespace GXPEngine
         //how many points have you scored
         public static int score;
 
+        public static int lives;
+
+        public static string playerName;
+        public static string previousPlayer;
+        public static int letterSel;
+        public static StringBuilder nameBuilder = new StringBuilder("___");
+
         //how long has this session gone on
         public static int playTime;
 
@@ -24,6 +31,10 @@ namespace GXPEngine
         public static ActorBongo leftBongo;
         public static ActorBongo rightBongo;
         public static ActorMonkey player;
+        public static ActorHunter hunter;
+
+        public static bool playerAtLeft;
+        public static bool playerAtRight;
 
         //How much time is there left in this minigame if Ongoing is true, or how much time until the next minigame if not
         public static int minigameTime;
@@ -32,6 +43,8 @@ namespace GXPEngine
         public static bool minigameOngoing;
 
         public static int boostTime;
+
+        public static char[] letters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
 
         public static Dictionary<char, String> charToMorse = new Dictionary<char, String>()
