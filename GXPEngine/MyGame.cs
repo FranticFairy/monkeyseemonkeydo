@@ -22,14 +22,14 @@ public class MyGame : Game
     private static List<ActorItem> removeObjects = new List<ActorItem>();
     private int nameLetterCounter = 0;
     Sprite startScreen;
-    Sprite bgScreen;
+    AnimationSprite bgScreen;
     Sprite gameOverScreen;
 
 
     public MyGame() : base(1366, 768, false)     // Create a window that's 800x600 and NOT fullscreen
     {
         startScreen = new Sprite("Start.png");
-        bgScreen = new Sprite("BG.png");
+        bgScreen = new AnimationSprite("BG.png",3,1);
         gameOverScreen = new Sprite("GameOver.png");
         gameOverScreen.visible = false;
         AddChild(bgScreen);
@@ -47,8 +47,11 @@ public class MyGame : Game
     // For every game object, Update is called every frame, by the engine:
     void Update()
     {
-        if(Constants.lives <= 0)
+        bgScreen.Animate(0.05F);
+
+        if (Constants.lives <= 0)
         {
+            Constants.hud.updateLives();
             playing = false;
             scoreInput = true;
 
@@ -116,7 +119,12 @@ public class MyGame : Game
                 Constants.letterSel = 0;
                 nameLetterCounter = 0;
                 Constants.nameBuilder = new StringBuilder("___");
-                resetGame();
+                gameOverScreen.visible = true;
+                hasPlayed = true;
+                Constants.lives = 1;
+                Constants.hud.resetHUD();
+                scoreInput = false;
+
             }
         }
 
@@ -125,13 +133,19 @@ public class MyGame : Game
             if (Input.GetKey(Key.SIX))
             {
                 startScreen.Destroy();
+                if(hasPlayed == true)
+                {
+                    gameOverScreen.visible = false;
+                    resetGame();
+                    buildGame();
+                }
                 buildGame();
             }
         }
         
         if(playing && !scoreInput)
         {
-
+            Constants.hud.updateLives();
             Constants.player.Update();
             Constants.hunter.Update();
             foreach (ActorItem item in objects)
@@ -172,7 +186,6 @@ public class MyGame : Game
 
     void resetGame()
     {
-        //gameOverScreen.visible = false;
 
         Constants.player.SetXY(315 + 32, 598);
         Constants.player.sprite.SetXY(315 + 32, 598);
@@ -188,9 +201,7 @@ public class MyGame : Game
 
         Constants.score = 0;
 
-        scoreInput = false;
         Constants.lives = 3;
-        Constants.hud.resetHUD();
     }
 
     void buildGame()
@@ -251,6 +262,8 @@ public class MyGame : Game
 
     void startGame()
     {
+
+        gameOverScreen.visible = false;
         Constants.gameSpeed = 1;
         Constants.score = 0;
         Constants.playTime = 0;

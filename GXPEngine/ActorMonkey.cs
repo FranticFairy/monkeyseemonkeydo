@@ -49,6 +49,7 @@ namespace GXPEngine
         {
             die.Play().Volume = 0.5F;
             Constants.lives = 0;
+            Constants.hud.hideLives();
         }
 
         public override void Update()

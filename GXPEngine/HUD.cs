@@ -15,9 +15,28 @@ namespace GXPEngine
         EasyDraw player;
         EasyDraw vine;
         string playerText;
+        Sprite life1;
+        Sprite life2;
+        Sprite life3;
 
         public HUD()
         {
+            life1 = new Sprite("Life.png");
+            life2 = new Sprite("Life.png");
+            life3 = new Sprite("Life.png");
+
+            life1.visible = false;
+            life2.visible = false;
+            life3.visible = false;
+
+            life1.SetXY(1205 - 64, 83);
+            life2.SetXY(1275 - 64, 83);
+            life3.SetXY(1345 - 64, 83);
+
+            AddChild(life1);
+            AddChild(life2);
+            AddChild(life3);
+
             scoreCounter = new EasyDraw(512, 32);
             //scoreCounter.Clear(Color.Black);
             //scoreCounter.Text(("Press 6 to Start!"));
@@ -99,6 +118,34 @@ namespace GXPEngine
             }
         }
 
+        public void hideLives()
+        {
+            life1.visible = false;
+            life2.visible = false;
+            life3.visible = false;
+        }
+
+        public void updateLives()
+        {
+            switch(Constants.lives)
+            {
+                case 0:
+                    life3.visible = false;
+                    break;
+                case 1:
+                    life2.visible = false;
+                    break;
+                case 2:
+                    life1.visible = false;
+                    break;
+                case 3:
+                    life1.visible = true;
+                    life2.visible = true;
+                    life3.visible = true;
+                    break;
+            }
+        }
+
         public void resetHUD()
         {
 
@@ -108,7 +155,7 @@ namespace GXPEngine
             score = Constants.score;
             //scoreCounter.Clear(Color.Black);
             //scoreCounter.Fill(Color.Black);
-            scoreCounter.Text(("Press 6 to Start!"));
+            scoreCounter.Text((""));
             AddChild(scoreCounter);
         }
 
@@ -134,7 +181,7 @@ namespace GXPEngine
             scoreCounter = new EasyDraw(512, 32);
             score = Constants.score;
             //scoreCounter.Clear(Color.Black);
-            scoreCounter.Text(("Score: " + score + " | High Score: " + Constants.highScore + Constants.previousPlayer + " | Lives: " + Constants.lives));
+            scoreCounter.Text(("Score: " + score + " | High Score: " + Constants.highScore + Constants.previousPlayer));
             AddChild(scoreCounter);
         }
 
