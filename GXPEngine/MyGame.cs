@@ -72,24 +72,28 @@ public class MyGame : Game
             Constants.hud.registerScore();
 
             //36 Chars
-            if (Input.GetKeyUp(Key.SPACE) && nameLetterCounter < 2)
+            if (Input.GetKeyUp(Key.SIX) && nameLetterCounter < 2)
             {
                 Constants.letterSel = 0;
                 nameLetterCounter++;
-            } else if (Input.GetKeyUp(Key.SPACE) && nameLetterCounter == 2)
+            } else if (Input.GetKeyUp(Key.SIX) && nameLetterCounter == 2)
             {
-                Constants.highScore = Constants.score;
+                if(Constants.score > Constants.highScore)
+                {
+                    Constants.highScore = Constants.score;
+                    Constants.previousPlayer = " - " + Constants.playerName;
+                }
+
                 Constants.letterSel = 0;
                 nameLetterCounter = 0;
                 Constants.nameBuilder = new StringBuilder("___");
-                Constants.previousPlayer = " - " + Constants.playerName;
                 resetGame();
             }
         }
 
         if (!playing && !scoreInput)
         {
-            if (Input.GetKey(Key.SPACE))
+            if (Input.GetKey(Key.SIX))
             {
                 buildGame();
             }
@@ -125,11 +129,10 @@ public class MyGame : Game
             tickTimer--;
             if (tickTimer == 0)
             {
-                Console.WriteLine(objects.Count);
                 spawningItem = false;
                 Random rand = new Random();
                 int randomOutput = rand.Next(60) + 1;
-                tickTimer = 120 + randomOutput;
+                tickTimer = 160 + randomOutput - (Constants.score*2);
                 spawnItem();
             }
 
@@ -153,8 +156,8 @@ public class MyGame : Game
         objects.Clear();
         removeObjects.Clear();
 
-        Constants.player.SetXY(27 + 32 + 128 + 64, 600);
-        Constants.player.sprite.SetXY(27 + 32 + 128 + 64, 600);
+        Constants.player.SetXY(27 + 32 + 128 + 64+32, 600);
+        Constants.player.sprite.SetXY(27 + 32 + 128 + 64 + 32, 600);
         Constants.player.reset();
         Constants.hunter.reset();
 
@@ -172,12 +175,12 @@ public class MyGame : Game
     {
         if(!hasPlayed)
         {
-            Constants.leftBongo = new ActorBongo(27 + 128 + 64, 600, "LBongo");
-            Constants.rightBongo = new ActorBongo(1211 + 128 - 64, 600, "RBongo");
+            Constants.leftBongo = new ActorBongo(64 + 128 + 64 + 32, 600, "LBongo");
+            Constants.rightBongo = new ActorBongo(1184 + 128 - 64 - 32, 600, "RBongo");
             Constants.hunter = new ActorHunter();
-            Constants.player = new ActorMonkey(27 + 32 + 128 + 64, 600);
+            Constants.player = new ActorMonkey(64 + 32 + 128 + 64 + 32, 600);
 
-            //Items drop at (397+128), (619+128) and (841+128)
+            //Items drop at (400+128), (600+128) and (800+128)
 
             AddChild(Constants.leftBongo.sprite);
             AddChild(Constants.rightBongo.sprite);
@@ -200,7 +203,7 @@ public class MyGame : Game
             Random rand = new Random();
             int randomOutput = rand.Next(10) + 1;
             Random rand2 = new Random();
-            int randomLane = rand2.Next(2);
+            int randomLane = rand2.Next(3);
 
             if (randomOutput == 1)
             {

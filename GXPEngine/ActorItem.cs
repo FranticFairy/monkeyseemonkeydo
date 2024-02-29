@@ -16,12 +16,42 @@ namespace GXPEngine
             this.lane = lane;
             if (name == "fruit")
             {
-                sprite = new Sprite("colors.png");
+                Random randomFruit = new Random();
+                int fruitNumber = randomFruit.Next(3);
+                switch (fruitNumber)
+                {
+                    case 1:
+                        sprite = new Sprite("Coconut_Halves.png");
+                        break;
+                    case 2:
+                        sprite = new Sprite("Pineapple.png");
+                        break;
+                    default:
+                        sprite = new Sprite("Banana.png");
+                        break;
+                }
             }
             else
             {
-                sprite = new Sprite("square.png");
+                Random randomObstacle = new Random();
+                int obstacleNumber = randomObstacle.Next(4);
+                switch (obstacleNumber)
+                {
+                    case 1:
+                        sprite = new Sprite("Bomb_Barrel.png");
+                        break;
+                    case 2:
+                        sprite = new Sprite("Bomb_Bomb.png");
+                        break;
+                    case 3:
+                        sprite = new Sprite("Bomb_dynamite.png");
+                        break;
+                    default:
+                        sprite = new Sprite("Rock.png");
+                        break;
+                }
             }
+
             this.sprite.name = name;
             sprite.SetOrigin(sprite.width, sprite.height);
 
@@ -34,11 +64,11 @@ namespace GXPEngine
                     break;
 
                 case 2:
-                    x = 841 + 128;
+                    x = 841 + 128 - 32;
                     break;
 
                 default:
-                    x = 397 + 128;
+                    x = 397 + 128 + 32;
                     break;
             }
 
@@ -47,8 +77,8 @@ namespace GXPEngine
 
         public override void Update()
         {
-
-            sprite.Move(0, 2);
+            int moveSpeed = 2 + (int)Math.Floor((Constants.score / 10.0));
+            sprite.Move(0, moveSpeed);
         }
     }
 }

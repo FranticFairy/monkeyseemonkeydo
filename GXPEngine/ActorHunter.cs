@@ -39,15 +39,15 @@ namespace GXPEngine
         }
         public void moveLeft()
         {
-            SetXY(27 + 128 + 64, 200);
-            sprite.SetXY(27 + 128 + 64, 200);
+            SetXY(320, 200);
+            sprite.SetXY(320, 200);
             sprite.visible = true;
         }
 
         public void moveRight()
         {
-            SetXY(1211 + 128 - 64, 200);
-            sprite.SetXY(1211 + 128 - 64, 200);
+            SetXY(1184 - 64, 200);
+            sprite.SetXY(1184 - 64, 200);
             sprite.visible = true;
         }
     }

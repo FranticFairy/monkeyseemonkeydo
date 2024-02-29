@@ -10,6 +10,7 @@ namespace GXPEngine
     {
         public bool isResting;
         public bool leftToRight;
+        public int jumpsRemain = 2;
 
         public ActorMonkey(int x, int y)
         {
@@ -32,7 +33,7 @@ namespace GXPEngine
             {
                 if (leftToRight)
                 {
-                    if (Input.GetKey(Key.D))
+                    if (Input.GetKeyUp(Key.D))
                     {
                         isResting = false;
                         Constants.playerAtLeft = false;
@@ -41,16 +42,32 @@ namespace GXPEngine
                 }
                 else
                 {
-                    if (Input.GetKey(Key.A))
+                    if (Input.GetKeyUp(Key.A))
                     {
                         isResting = false;
                         Constants.playerAtRight = false;
                         Constants.hunter.hide();
                     }
                 }
-            }
+            } 
             else
             {
+                if (jumpsRemain > 0)
+                {
+                    if (Input.GetKeyUp(Key.D))
+                    {
+                        Console.WriteLine("D");
+                        leftToRight = true;
+                        jumpsRemain--;
+                    }
+                    if (Input.GetKeyUp(Key.A))
+                    {
+                        Console.WriteLine("A");
+                        leftToRight = false;
+                        jumpsRemain--;
+                    }
+                }
+
                 if (leftToRight)
                 {
                     sprite.Move(4, 0);
@@ -74,6 +91,7 @@ namespace GXPEngine
                             Constants.playerAtLeft = true;
                             Constants.hunter.moveLeft();
                             leftToRight = true;
+                            jumpsRemain = 2;
                         }
                         break;
                     case "RBongo":
@@ -84,6 +102,7 @@ namespace GXPEngine
                             Constants.playerAtRight = true;
                             Constants.hunter.moveRight();
                             leftToRight = false;
+                            jumpsRemain = 2;
                         }
                         break;
                     case "fruit":
