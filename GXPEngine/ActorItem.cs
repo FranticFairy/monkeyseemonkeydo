@@ -60,15 +60,15 @@ namespace GXPEngine
             switch (lane)
             {
                 case 1:
-                    x = 619 + 128;
+                    x = 714 + 128;
                     break;
 
                 case 2:
-                    x = 841 + 128 - 32;
+                    x = 878 - 32;
                     break;
 
                 default:
-                    x = 397 + 128 + 32;
+                    x = 550 + 32;
                     break;
             }
 

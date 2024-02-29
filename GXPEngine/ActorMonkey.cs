@@ -12,6 +12,16 @@ namespace GXPEngine
         public bool leftToRight;
         public int jumpsRemain = 2;
 
+        Sound jump;
+        Sound launch;
+        Sound land;
+        Sound collect;
+        Sound hit;
+        Sound rock;
+        Sound bomb;
+        Sound die;
+
+
         public ActorMonkey(int x, int y)
         {
             sprite = new Sprite("circle.png");
@@ -19,12 +29,26 @@ namespace GXPEngine
             sprite.SetXY(x, y);
             isResting = true;
             leftToRight = true;
+            jump = new Sound("Audio/Monkey Launched.mp3", false, false);
+            launch = new Sound("Audio/Bongo Launch.mp3", false, false);
+            land = new Sound("Audio/Bongo Landing.mp3", false, false);
+            collect = new Sound("Audio/Fruit Collect.mp3", false, false);
+            hit = new Sound("Audio/Monkey Hurt.mp3", false, false);
+            rock = new Sound("Audio/Rock Hit.mp3", false, false);
+            bomb = new Sound("Audio/Bomb Hit.mp3", false, false);
+            die = new Sound("Audio/Death.mp3", false, false);
         }
 
         public void reset()
         {
             isResting = true;
             leftToRight = true;
+        }
+
+        public void getHunted()
+        {
+            die.Play().Volume = 0.5F;
+            Constants.lives = 0;
         }
 
         public override void Update()
@@ -35,6 +59,7 @@ namespace GXPEngine
                 {
                     if (Input.GetKeyUp(Key.D))
                     {
+                        launch.Play().Volume = 0.5F;
                         isResting = false;
                         Constants.playerAtLeft = false;
                         Constants.hunter.hide();
@@ -44,6 +69,7 @@ namespace GXPEngine
                 {
                     if (Input.GetKeyUp(Key.A))
                     {
+                        launch.Play().Volume = 0.5F;
                         isResting = false;
                         Constants.playerAtRight = false;
                         Constants.hunter.hide();
@@ -56,13 +82,13 @@ namespace GXPEngine
                 {
                     if (Input.GetKeyUp(Key.D))
                     {
-                        Console.WriteLine("D");
+                        jump.Play().Volume = 0.5F;
                         leftToRight = true;
                         jumpsRemain--;
                     }
                     if (Input.GetKeyUp(Key.A))
                     {
-                        Console.WriteLine("A");
+                        jump.Play().Volume = 0.5F;
                         leftToRight = false;
                         jumpsRemain--;
                     }
@@ -86,6 +112,7 @@ namespace GXPEngine
                     case "LBongo":
                         if (!leftToRight)
                         {
+                            land.Play().Volume = 0.5F;
                             sprite.Move(-64, 0);
                             isResting = true;
                             Constants.playerAtLeft = true;
@@ -97,6 +124,7 @@ namespace GXPEngine
                     case "RBongo":
                         if (leftToRight)
                         {
+                            land.Play().Volume = 0.5F;
                             sprite.Move(64,0);
                             isResting = true;
                             Constants.playerAtRight = true;
@@ -106,14 +134,17 @@ namespace GXPEngine
                         }
                         break;
                     case "fruit":
+                        collect.Play().Volume = 0.5F;
                         Constants.score++;
                         collisions[i].LateDestroy();
                         break;
                     case "obstacle":
+                        hit.Play().Volume = 0.5F;
                         Constants.lives--;
                         collisions[i].LateDestroy();
                         break;
                     case "Hunter":
+                        die.Play().Volume = 0.5F;
                         Constants.lives = 0;
                         break;
                 }

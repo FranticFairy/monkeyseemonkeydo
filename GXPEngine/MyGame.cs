@@ -156,8 +156,8 @@ public class MyGame : Game
         objects.Clear();
         removeObjects.Clear();
 
-        Constants.player.SetXY(27 + 32 + 128 + 64+32, 600);
-        Constants.player.sprite.SetXY(27 + 32 + 128 + 64 + 32, 600);
+        Constants.player.SetXY(395 + 32, 698);
+        Constants.player.sprite.SetXY(395 + 32, 698);
         Constants.player.reset();
         Constants.hunter.reset();
 
@@ -175,17 +175,17 @@ public class MyGame : Game
     {
         if(!hasPlayed)
         {
-            Constants.leftBongo = new ActorBongo(64 + 128 + 64 + 32, 600, "LBongo");
-            Constants.rightBongo = new ActorBongo(1184 + 128 - 64 - 32, 600, "RBongo");
+            Constants.leftBongo = new ActorBongo(395, 698, "LBongo");
+            Constants.rightBongo = new ActorBongo(1097, 698, "RBongo");
             Constants.hunter = new ActorHunter();
-            Constants.player = new ActorMonkey(64 + 32 + 128 + 64 + 32, 600);
+            Constants.player = new ActorMonkey(395 + 32, 698);
 
             //Items drop at (400+128), (600+128) and (800+128)
 
             AddChild(Constants.leftBongo.sprite);
             AddChild(Constants.rightBongo.sprite);
             AddChild(Constants.player.sprite);
-            AddChild(Constants.hunter.sprite);
+            AddChild(Constants.hunter.hunterSprite);
             hasPlayed = true;
         }
 

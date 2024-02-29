@@ -8,47 +8,92 @@ namespace GXPEngine
 {
     internal class ActorHunter : Actor
     {
+
+        public AnimationSprite hunterSprite = new AnimationSprite("Hunter.png", 5, 5);
+
+        Sound appear;
+        Sound shoot;
+        bool appeared = false;
+        bool shot = false;
+
         public ActorHunter()
         {
-            sprite = new Sprite("checkers.png");
-            sprite.SetOrigin(sprite.width, sprite.height);
+            appear = new Sound("Audio/Tiki Appear.mp3", false, false);
+            shoot = new Sound("Audio/Blow Dart Shoot.mp3", false, false);
+            sprite = new AnimationSprite("Hunter.png",5,5);
+            hunterSprite.SetOrigin(hunterSprite.width, hunterSprite.height);
             SetXY(0, 0);
-            sprite.SetXY(0, 0);
-            sprite.visible = false;
-            this.sprite.name = "Hunter";
+            hunterSprite.SetXY(0, 0);
+            hunterSprite.visible = false;
+            this.hunterSprite.name = "Hunter";
         }
 
         public override void Update()
         {
             if(Constants.playerAtLeft || Constants.playerAtRight)
             {
-                sprite.Move(0, 1);
+                hunterSprite.Animate(0.05F);
+                if (hunterSprite.currentFrame == 12)
+                {
+                    if (appeared == false)
+                    {
+                        appeared = true;
+                        appear.Play().Volume = 0.5F;
+                    }
+                }
+                if (hunterSprite.currentFrame == 20)
+                {
+                    if (shot == false)
+                    {
+                        shot = true;
+                        shoot.Play().Volume = 0.5F;
+                    }
+                }
+                if (hunterSprite.currentFrame == 23)
+                {
+                    if (Constants.lives > 0)
+                    {
+                        Constants.player.getHunted();
+                    }
+                }
+                //sprite.Move(0, 1);
             }
+
+        }
+
+        void playSound()
+        {
         }
 
         public void reset()
         {
             SetXY(0, 0);
-            sprite.SetXY(0, 0);
-            sprite.visible = false;
+            hunterSprite.SetXY(0, 0);
+            hunterSprite.visible = false;
+            shot = false;
+            appeared = false;
         }
 
         public void hide()
         {
-            sprite.visible = false;
+            hunterSprite.visible = false;
         }
         public void moveLeft()
         {
-            SetXY(320, 200);
-            sprite.SetXY(320, 200);
-            sprite.visible = true;
+            hunterSprite.Mirror(false, false);
+            hunterSprite.SetFrame(0);
+            SetXY(167, 698);
+            hunterSprite.SetXY(167, 698);
+            hunterSprite.visible = true;
         }
 
         public void moveRight()
         {
-            SetXY(1184 - 64, 200);
-            sprite.SetXY(1184 - 64, 200);
-            sprite.visible = true;
+            hunterSprite.Mirror(true, false);
+            hunterSprite.SetFrame(0);
+            SetXY(1325, 698);
+            hunterSprite.SetXY(1325, 698);
+            hunterSprite.visible = true;
         }
     }
 }

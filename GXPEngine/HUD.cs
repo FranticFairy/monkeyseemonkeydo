@@ -20,7 +20,7 @@ namespace GXPEngine
         {
             scoreCounter = new EasyDraw(512, 32);
             //scoreCounter.Clear(Color.Black);
-            scoreCounter.Text(("Press Space to Start!"));
+            scoreCounter.Text(("Press 6 to Start!"));
             AddChild(scoreCounter);
 
             /*
@@ -107,7 +107,7 @@ namespace GXPEngine
             scoreCounter = new EasyDraw(512, 32);
             score = Constants.score;
             scoreCounter.Clear(Color.Black);
-            scoreCounter.Text(("Press Space to Start!"));
+            scoreCounter.Text(("Press 6 to Start!"));
             AddChild(scoreCounter);
         }
 
