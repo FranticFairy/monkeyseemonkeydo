@@ -82,8 +82,8 @@ namespace GXPEngine
         {
             hunterSprite.Mirror(false, false);
             hunterSprite.SetFrame(0);
-            SetXY(167, 698);
-            hunterSprite.SetXY(167, 698);
+            SetXY(167, 598);
+            hunterSprite.SetXY(167, 598);
             hunterSprite.visible = true;
         }
 
@@ -91,8 +91,8 @@ namespace GXPEngine
         {
             hunterSprite.Mirror(true, false);
             hunterSprite.SetFrame(0);
-            SetXY(1325, 698);
-            hunterSprite.SetXY(1325, 698);
+            SetXY(1325, 598);
+            hunterSprite.SetXY(1325, 598);
             hunterSprite.visible = true;
         }
     }

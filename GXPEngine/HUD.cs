@@ -20,7 +20,7 @@ namespace GXPEngine
         {
             scoreCounter = new EasyDraw(512, 32);
             //scoreCounter.Clear(Color.Black);
-            scoreCounter.Text(("Press 6 to Start!"));
+            //scoreCounter.Text(("Press 6 to Start!"));
             AddChild(scoreCounter);
 
             /*
@@ -106,7 +106,8 @@ namespace GXPEngine
 
             scoreCounter = new EasyDraw(512, 32);
             score = Constants.score;
-            scoreCounter.Clear(Color.Black);
+            //scoreCounter.Clear(Color.Black);
+            //scoreCounter.Fill(Color.Black);
             scoreCounter.Text(("Press 6 to Start!"));
             AddChild(scoreCounter);
         }
@@ -132,7 +133,7 @@ namespace GXPEngine
 
             scoreCounter = new EasyDraw(512, 32);
             score = Constants.score;
-            scoreCounter.Clear(Color.Black);
+            //scoreCounter.Clear(Color.Black);
             scoreCounter.Text(("Score: " + score + " | High Score: " + Constants.highScore + Constants.previousPlayer + " | Lives: " + Constants.lives));
             AddChild(scoreCounter);
         }
@@ -143,7 +144,7 @@ namespace GXPEngine
 
             scoreCounter = new EasyDraw(512, 32);
             score = Constants.score;
-            scoreCounter.Clear(Color.Black);
+            //scoreCounter.Clear(Color.Black);
             scoreCounter.Text(("New High Score: " + score + " | Your Name: " + Constants.playerName));
             AddChild(scoreCounter);
         }

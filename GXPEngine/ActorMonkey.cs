@@ -24,7 +24,7 @@ namespace GXPEngine
 
         public ActorMonkey(int x, int y)
         {
-            sprite = new Sprite("circle.png");
+            sprite = new Sprite("Monkey.png");
             sprite.SetOrigin(sprite.width, sprite.height);
             sprite.SetXY(x, y);
             isResting = true;
@@ -60,6 +60,7 @@ namespace GXPEngine
                     if (Input.GetKeyUp(Key.D))
                     {
                         launch.Play().Volume = 0.5F;
+                        sprite.Mirror(true, false);
                         isResting = false;
                         Constants.playerAtLeft = false;
                         Constants.hunter.hide();
@@ -70,6 +71,7 @@ namespace GXPEngine
                     if (Input.GetKeyUp(Key.A))
                     {
                         launch.Play().Volume = 0.5F;
+                        sprite.Mirror(false, false);
                         isResting = false;
                         Constants.playerAtRight = false;
                         Constants.hunter.hide();
@@ -83,12 +85,14 @@ namespace GXPEngine
                     if (Input.GetKeyUp(Key.D))
                     {
                         jump.Play().Volume = 0.5F;
+                        sprite.Mirror(true, false);
                         leftToRight = true;
                         jumpsRemain--;
                     }
                     if (Input.GetKeyUp(Key.A))
                     {
                         jump.Play().Volume = 0.5F;
+                        sprite.Mirror(false, false);
                         leftToRight = false;
                         jumpsRemain--;
                     }

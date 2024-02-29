@@ -21,10 +21,20 @@ public class MyGame : Game
     private static List<ActorItem> objects = new List<ActorItem>();
     private static List<ActorItem> removeObjects = new List<ActorItem>();
     private int nameLetterCounter = 0;
+    Sprite startScreen;
+    Sprite bgScreen;
+    Sprite gameOverScreen;
 
 
     public MyGame() : base(1366, 768, false)     // Create a window that's 800x600 and NOT fullscreen
     {
+        startScreen = new Sprite("Start.png");
+        bgScreen = new Sprite("BG.png");
+        gameOverScreen = new Sprite("GameOver.png");
+        gameOverScreen.visible = false;
+        AddChild(bgScreen);
+        AddChild(startScreen);
+        AddChild(gameOverScreen);
         Constants.hud = new HUD();
         AddChild(Constants.hud);
         Constants.hud.SetXY(0, 0);
@@ -41,6 +51,25 @@ public class MyGame : Game
         {
             playing = false;
             scoreInput = true;
+
+            foreach (ActorItem item in objects)
+            {
+                item.sprite.LateDestroy();
+                item.LateDestroy();
+                item.sprite = null;
+                item.Remove();
+                RemoveChild(item);
+            }
+
+            Constants.hunter.hunterSprite.visible = false;
+            Constants.player.sprite.visible = false;
+            Constants.leftBongo.sprite.visible = false;
+            Constants.rightBongo.sprite.visible = false;
+
+            //gameOverScreen.visible = true;
+
+            objects.Clear();
+            removeObjects.Clear();
         }
 
         if (!playing && scoreInput)
@@ -95,6 +124,7 @@ public class MyGame : Game
         {
             if (Input.GetKey(Key.SIX))
             {
+                startScreen.Destroy();
                 buildGame();
             }
         }
@@ -142,24 +172,16 @@ public class MyGame : Game
 
     void resetGame()
     {
+        //gameOverScreen.visible = false;
 
-        foreach (ActorItem item in objects)
-        {
-            item.sprite.LateDestroy();
-            item.LateDestroy();
-            item.sprite = null;
-            item.Remove();
-            RemoveChild(item);
-        }
-
-
-        objects.Clear();
-        removeObjects.Clear();
-
-        Constants.player.SetXY(395 + 32, 698);
-        Constants.player.sprite.SetXY(395 + 32, 698);
+        Constants.player.SetXY(315 + 32, 598);
+        Constants.player.sprite.SetXY(315 + 32, 598);
         Constants.player.reset();
         Constants.hunter.reset();
+
+        Constants.player.sprite.visible = true;
+        Constants.leftBongo.sprite.visible = true;
+        Constants.rightBongo.sprite.visible = true;
 
         Constants.playerAtLeft = false;
         Constants.playerAtRight = false;
@@ -175,10 +197,10 @@ public class MyGame : Game
     {
         if(!hasPlayed)
         {
-            Constants.leftBongo = new ActorBongo(395, 698, "LBongo");
-            Constants.rightBongo = new ActorBongo(1097, 698, "RBongo");
+            Constants.leftBongo = new ActorBongo(315, 598, "LBongo");
+            Constants.rightBongo = new ActorBongo(1177, 598, "RBongo");
             Constants.hunter = new ActorHunter();
-            Constants.player = new ActorMonkey(395 + 32, 698);
+            Constants.player = new ActorMonkey(315 + 32, 598);
 
             //Items drop at (400+128), (600+128) and (800+128)
 
