@@ -12,6 +12,8 @@ namespace GXPEngine
         public bool leftToRight;
         public int jumpsRemain = 2;
 
+        public AnimationSprite monkeySprite;
+
         Sound jump;
         Sound launch;
         Sound land;
@@ -27,6 +29,9 @@ namespace GXPEngine
             sprite = new Sprite("Monkey.png");
             sprite.SetOrigin(sprite.width, sprite.height);
             sprite.SetXY(x, y);
+            monkeySprite = new AnimationSprite("Monkey2.png",2,1);
+            monkeySprite.SetOrigin(sprite.width, sprite.height);
+            monkeySprite.SetXY(x, y);
             isResting = true;
             leftToRight = true;
             jump = new Sound("Audio/Monkey Launched.mp3", false, false);
@@ -41,6 +46,7 @@ namespace GXPEngine
 
         public void reset()
         {
+            monkeySprite.SetFrame(0);
             isResting = true;
             leftToRight = true;
         }
@@ -60,8 +66,9 @@ namespace GXPEngine
                 {
                     if (Input.GetKeyUp(Key.D))
                     {
+                        monkeySprite.SetFrame(1);
                         launch.Play().Volume = 0.5F;
-                        sprite.Mirror(true, false);
+                        monkeySprite.Mirror(true, false);
                         isResting = false;
                         Constants.playerAtLeft = false;
                         Constants.hunter.hide();
@@ -71,8 +78,9 @@ namespace GXPEngine
                 {
                     if (Input.GetKeyUp(Key.A))
                     {
+                        monkeySprite.SetFrame(1);
                         launch.Play().Volume = 0.5F;
-                        sprite.Mirror(false, false);
+                        monkeySprite.Mirror(false, false);
                         isResting = false;
                         Constants.playerAtRight = false;
                         Constants.hunter.hide();
@@ -86,14 +94,14 @@ namespace GXPEngine
                     if (Input.GetKeyUp(Key.D))
                     {
                         jump.Play().Volume = 0.5F;
-                        sprite.Mirror(true, false);
+                        monkeySprite.Mirror(true, false);
                         leftToRight = true;
                         jumpsRemain--;
                     }
                     if (Input.GetKeyUp(Key.A))
                     {
                         jump.Play().Volume = 0.5F;
-                        sprite.Mirror(false, false);
+                        monkeySprite.Mirror(false, false);
                         leftToRight = false;
                         jumpsRemain--;
                     }
@@ -101,15 +109,15 @@ namespace GXPEngine
 
                 if (leftToRight)
                 {
-                    sprite.Move(4, 0);
+                    monkeySprite.Move(4, 0);
                 }
                 else
                 {
-                    sprite.Move(-4, 0);
+                    monkeySprite.Move(-4, 0);
                 }
             }
 
-            GameObject[] collisions = sprite.GetCollisions();
+            GameObject[] collisions = monkeySprite.GetCollisions();
             for (int i = 0; i < collisions.Length; i++)
             {
                 switch (collisions[i].name)
@@ -117,8 +125,9 @@ namespace GXPEngine
                     case "LBongo":
                         if (!leftToRight)
                         {
+                            monkeySprite.SetFrame(0);
                             land.Play().Volume = 0.5F;
-                            sprite.Move(-64, 0);
+                            monkeySprite.Move(-64, 0);
                             isResting = true;
                             Constants.playerAtLeft = true;
                             Constants.hunter.moveLeft();
@@ -129,8 +138,9 @@ namespace GXPEngine
                     case "RBongo":
                         if (leftToRight)
                         {
+                            monkeySprite.SetFrame(0);
                             land.Play().Volume = 0.5F;
-                            sprite.Move(64,0);
+                            monkeySprite.Move(64,0);
                             isResting = true;
                             Constants.playerAtRight = true;
                             Constants.hunter.moveRight();

@@ -24,6 +24,10 @@ public class MyGame : Game
     Sprite startScreen;
     AnimationSprite bgScreen;
     Sprite gameOverScreen;
+    Sprite bushL;
+    Sprite bushR;
+    Sprite bushBL;
+    Sprite bushBR;
 
 
     public MyGame() : base(1366, 768, false)     // Create a window that's 800x600 and NOT fullscreen
@@ -32,12 +36,24 @@ public class MyGame : Game
         bgScreen = new AnimationSprite("BG.png",3,1);
         gameOverScreen = new Sprite("GameOver.png");
         gameOverScreen.visible = false;
+        bushL = new Sprite("Bush.png");
+        bushR = new Sprite("Bush.png");
+        bushR.Mirror(true, false);
+        bushL.SetXY(167-128, 470);
+        bushR.SetXY(1325 - 128, 470);
+        bushBL = new Sprite("George.png");
+        bushBR = new Sprite("George.png");
+        bushBR.Mirror(true, false);
+        bushBL.SetXY(167 - 128, 470);
+        bushBR.SetXY(1325 - 128, 470);
         AddChild(bgScreen);
         AddChild(startScreen);
         AddChild(gameOverScreen);
         Constants.hud = new HUD();
         AddChild(Constants.hud);
         Constants.hud.SetXY(0, 0);
+        AddChild(bushBL);
+        AddChild(bushBR);
 
         startGame();
 
@@ -65,7 +81,7 @@ public class MyGame : Game
             }
 
             Constants.hunter.hunterSprite.visible = false;
-            Constants.player.sprite.visible = false;
+            Constants.player.monkeySprite.visible = false;
             Constants.leftBongo.sprite.visible = false;
             Constants.rightBongo.sprite.visible = false;
 
@@ -188,11 +204,11 @@ public class MyGame : Game
     {
 
         Constants.player.SetXY(315 + 32, 598);
-        Constants.player.sprite.SetXY(315 + 32, 598);
+        Constants.player.monkeySprite.SetXY(315 + 32, 598);
         Constants.player.reset();
         Constants.hunter.reset();
 
-        Constants.player.sprite.visible = true;
+        Constants.player.monkeySprite.visible = true;
         Constants.leftBongo.sprite.visible = true;
         Constants.rightBongo.sprite.visible = true;
 
@@ -217,8 +233,10 @@ public class MyGame : Game
 
             AddChild(Constants.leftBongo.sprite);
             AddChild(Constants.rightBongo.sprite);
-            AddChild(Constants.player.sprite);
+            AddChild(Constants.player.monkeySprite);
             AddChild(Constants.hunter.hunterSprite);
+            AddChild(bushL);
+            AddChild(bushR);
             hasPlayed = true;
         }
 
