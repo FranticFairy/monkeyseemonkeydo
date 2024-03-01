@@ -109,6 +109,7 @@
     <Compile Include="GXPEngine\FMOD\FMODSoundSystem.cs" />
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
+    <Compile Include="Score.cs" />
     <Compile Include="Waterfall.cs" />
     <Compile Include="WaterfallObject.cs" />
   </ItemGroup>

@@ -18,9 +18,12 @@ namespace GXPEngine
         Sprite life1;
         Sprite life2;
         Sprite life3;
+        List<EasyDraw> scoreList;
 
         public HUD()
         {
+            scoreList = new List<EasyDraw>();
+
             life1 = new Sprite("Life.png");
             life2 = new Sprite("Life.png");
             life3 = new Sprite("Life.png");
@@ -189,12 +192,18 @@ namespace GXPEngine
             scoreCounter.y = scoreCounter.y + 8;
             scoreCounter.TextFont("Daydream", 10);
             //scoreCounter.Clear(Color.Black);
-            scoreCounter.Text(("Score: " + score + " | High Score: " + Constants.highScore + Constants.previousPlayer));
+            scoreCounter.Text(("Score: " + score + " | High Score: " + Constants.scores[0].writeScore()));
             AddChild(scoreCounter);
         }
 
         public void registerScore()
         {
+            List<GameObject> children = GetChildren();
+            foreach (GameObject child in children)
+            {
+                child.LateDestroy();
+            }
+
             scoreCounter.Destroy();
 
             scoreCounter = new EasyDraw(512, 32);
@@ -205,6 +214,18 @@ namespace GXPEngine
             //scoreCounter.Clear(Color.Black);
             scoreCounter.Text(("High Score: " + score + " | Your Name: " + Constants.playerName));
             AddChild(scoreCounter);
+
+            scoreList.Clear();
+
+            foreach(Score score in Constants.scores)
+            {
+                EasyDraw scoreDraw = new EasyDraw(512, 32);
+                scoreDraw.SetXY(1300 - 256, 16 + (32 * scoreList.Count()));
+                scoreDraw.TextFont("Daydream", 10);
+                scoreDraw.Text(score.writeScore());
+                scoreList.Add(scoreDraw);
+                AddChild(scoreDraw);
+            }
         }
     }
 }

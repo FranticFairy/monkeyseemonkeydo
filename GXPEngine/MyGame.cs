@@ -59,6 +59,24 @@ public class MyGame : Game
         menuMusic = new Sound("Audio/Menu Music LOOP.mp3", true, true);
         menuMusicChannel = menuMusic.Play();
 
+        try
+        {
+            StreamReader sr = new StreamReader("Scores.txt");
+            String line = sr.ReadLine();
+            while(line != null)
+            {
+                string[] scores = line.Split('|');
+                Score newScore = new Score(int.Parse(scores[0]), scores[1]);
+                Constants.scores.Add(newScore);
+                line = sr.ReadLine();
+            }
+            sr.Close();
+        } catch (Exception ex)
+        {
+
+        }
+
+
         AddChild(bgScreen);
         AddChild(startScreen);
         AddChild(gameOverScreen);
@@ -141,11 +159,26 @@ public class MyGame : Game
                 nameLetterCounter++;
             } else if (Input.GetKeyUp(Key.SIX) && nameLetterCounter == 2)
             {
-                if(Constants.score > Constants.highScore)
+                /*
+                if(Constants.score > Constants.scores[0].score)
                 {
                     Constants.highScore = Constants.score;
                     Constants.previousPlayer = " - " + Constants.playerName;
                 }
+                */
+                Score playerScore = new Score(Constants.score, Constants.playerName);
+
+                Constants.scores.Add(playerScore);
+                Constants.scores.Sort();
+                Constants.scores.Reverse();
+
+                Constants.scoresExportable.Clear();
+                foreach(Score score in Constants.scores)
+                {
+                    Constants.scoresExportable.Add(score.saveScore());
+                }
+
+                File.WriteAllLines("Scores.txt", Constants.scoresExportable);
 
                 Constants.letterSel = 0;
                 nameLetterCounter = 0;

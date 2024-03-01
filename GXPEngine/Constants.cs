@@ -22,6 +22,10 @@ namespace GXPEngine
         public static int letterSel;
         public static StringBuilder nameBuilder = new StringBuilder("___");
 
+        public static List<Score> scores = new List<Score>();
+        
+        public static List<String> scoresExportable = new List<String>();
+
         //how long has this session gone on
         public static int playTime;
 
