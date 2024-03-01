@@ -38,6 +38,8 @@ namespace GXPEngine
             AddChild(life3);
 
             scoreCounter = new EasyDraw(512, 32);
+            scoreCounter.x = scoreCounter.x + 8;
+            scoreCounter.y = scoreCounter.y + 8;
             //scoreCounter.Clear(Color.Black);
             //scoreCounter.Text(("Press 6 to Start!"));
             AddChild(scoreCounter);
@@ -153,6 +155,9 @@ namespace GXPEngine
 
             scoreCounter = new EasyDraw(512, 32);
             score = Constants.score;
+            scoreCounter.x = scoreCounter.x + 8;
+            scoreCounter.y = scoreCounter.y + 8;
+            scoreCounter.TextFont("Daydream",10);
             //scoreCounter.Clear(Color.Black);
             //scoreCounter.Fill(Color.Black);
             scoreCounter.Text((""));
@@ -180,6 +185,9 @@ namespace GXPEngine
 
             scoreCounter = new EasyDraw(512, 32);
             score = Constants.score;
+            scoreCounter.x = scoreCounter.x + 8;
+            scoreCounter.y = scoreCounter.y + 8;
+            scoreCounter.TextFont("Daydream", 10);
             //scoreCounter.Clear(Color.Black);
             scoreCounter.Text(("Score: " + score + " | High Score: " + Constants.highScore + Constants.previousPlayer));
             AddChild(scoreCounter);
@@ -191,8 +199,11 @@ namespace GXPEngine
 
             scoreCounter = new EasyDraw(512, 32);
             score = Constants.score;
+            scoreCounter.x = scoreCounter.x + 8;
+            scoreCounter.y = scoreCounter.y + 8;
+            scoreCounter.TextFont("Daydream", 10);
             //scoreCounter.Clear(Color.Black);
-            scoreCounter.Text(("New High Score: " + score + " | Your Name: " + Constants.playerName));
+            scoreCounter.Text(("High Score: " + score + " | Your Name: " + Constants.playerName));
             AddChild(scoreCounter);
         }
     }

@@ -28,6 +28,11 @@ public class MyGame : Game
     Sprite bushR;
     Sprite bushBL;
     Sprite bushBR;
+    Sound menuMusic;
+    Sound gameMusic;
+    SoundChannel menuMusicChannel;
+    SoundChannel gameMusicChannel;
+
 
 
     public MyGame() : base(1366, 768, false)     // Create a window that's 800x600 and NOT fullscreen
@@ -46,6 +51,14 @@ public class MyGame : Game
         bushBR.Mirror(true, false);
         bushBL.SetXY(167 - 128, 470);
         bushBR.SetXY(1325 - 128, 470);
+
+        gameMusic = new Sound("Audio/In Game Music LOOP.mp3", true, true);
+        gameMusicChannel = gameMusic.Play();
+        gameMusicChannel.IsPaused = true;
+
+        menuMusic = new Sound("Audio/Menu Music LOOP.mp3", true, true);
+        menuMusicChannel = menuMusic.Play();
+
         AddChild(bgScreen);
         AddChild(startScreen);
         AddChild(gameOverScreen);
@@ -89,6 +102,8 @@ public class MyGame : Game
 
             objects.Clear();
             removeObjects.Clear();
+            gameMusicChannel.IsPaused = true;
+            menuMusicChannel.IsPaused = false;
         }
 
         if (!playing && scoreInput)
@@ -192,7 +207,11 @@ public class MyGame : Game
                 spawningItem = false;
                 Random rand = new Random();
                 int randomOutput = rand.Next(60) + 1;
-                tickTimer = 160 + randomOutput - (Constants.score*2);
+                tickTimer = 160 + randomOutput - (Constants.score*5);;
+                if(tickTimer < 11)
+                {
+                    tickTimer = 12;
+                }
                 spawnItem();
             }
 
@@ -222,7 +241,9 @@ public class MyGame : Game
 
     void buildGame()
     {
-        if(!hasPlayed)
+        menuMusicChannel.IsPaused = true;
+        gameMusicChannel.IsPaused = false;
+        if (!hasPlayed)
         {
             Constants.leftBongo = new ActorBongo(315, 598, "LBongo");
             Constants.rightBongo = new ActorBongo(1177, 598, "RBongo");
@@ -239,8 +260,6 @@ public class MyGame : Game
             AddChild(bushR);
             hasPlayed = true;
         }
-
-
         playing = true;
         Constants.lives = 3;
         Constants.hud.updateScore();
@@ -280,7 +299,7 @@ public class MyGame : Game
 
     void startGame()
     {
-
+        menuMusicChannel.IsPaused = false;
         gameOverScreen.visible = false;
         Constants.gameSpeed = 1;
         Constants.score = 0;
