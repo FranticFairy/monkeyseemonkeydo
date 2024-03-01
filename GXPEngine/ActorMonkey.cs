@@ -109,11 +109,11 @@ namespace GXPEngine
 
                 if (leftToRight)
                 {
-                    monkeySprite.Move(4, 0);
+                    monkeySprite.Move(6, 0);
                 }
                 else
                 {
-                    monkeySprite.Move(-4, 0);
+                    monkeySprite.Move(-6, 0);
                 }
             }
 

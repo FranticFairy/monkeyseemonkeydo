@@ -153,6 +153,17 @@ namespace GXPEngine
 
         public void resetHUD()
         {
+            List<GameObject> children = GetChildren();
+            foreach (GameObject child in children)
+            {
+                if (child.name == "Score")
+                {
+                    child.LateDestroy();
+                }
+            }
+
+            Console.WriteLine(Constants.lives);
+            updateLives();
 
             scoreCounter.Destroy();
 
@@ -201,7 +212,10 @@ namespace GXPEngine
             List<GameObject> children = GetChildren();
             foreach (GameObject child in children)
             {
-                child.LateDestroy();
+                if(child.name == "Score")
+                {
+                    child.LateDestroy();
+                }
             }
 
             scoreCounter.Destroy();
@@ -223,6 +237,7 @@ namespace GXPEngine
                 scoreDraw.SetXY(1300 - 256, 16 + (32 * scoreList.Count()));
                 scoreDraw.TextFont("Daydream", 10);
                 scoreDraw.Text(score.writeScore());
+                scoreDraw.name = "Score";
                 scoreList.Add(scoreDraw);
                 AddChild(scoreDraw);
             }
